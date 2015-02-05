@@ -2,7 +2,6 @@ package nonogramm;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -273,11 +272,13 @@ public class Window extends javax.swing.JFrame {
         int pixelPoints = (pixelWidth/5)*(pixelWidth/5);
         System.out.println("Pixelwidth: "+ pixelWidth);
         int pixelNumHeight = bildoriginal.getHeight()/pixelWidth;
-        Graphics2D g_bi=bi.createGraphics();
+        int height = pixelNumHeight*pixelWidth;
+        int width = pixelNumWidth*pixelWidth;
         
-        bi = bildoriginal.getSubimage(0, 0, pixelNumWidth*pixelWidth, pixelNumHeight*pixelWidth);
-        for(int y=0;y<bi.getHeight();y+=pixelWidth) {
-            for(int x=0;x<bi.getWidth();x+=pixelWidth) {
+        boolean[][] feld = new boolean[pixelNumWidth][pixelNumHeight];
+        //bi = bildoriginal.getSubimage(0, 0, pixelNumWidth*pixelWidth, pixelNumHeight*pixelWidth);
+        for(int y=0;y<height;y+=pixelWidth) {
+            for(int x=0;x<width;x+=pixelWidth) {
                 int r=0;
                 int g=0;
                 int b=0;
@@ -291,15 +292,25 @@ public class Window extends javax.swing.JFrame {
                 g/=pixelPoints;
                 b/=pixelPoints;
                 
-                int hell=(r+g+b)/3;
+                int hell=(r+g+b)/3; //0-255
                 if(hell>=schwell) {
-                    g_bi.setColor(Color.WHITE);
+                    feld[x/pixelWidth][y/pixelWidth]=true; //White
                 } else {
-                    g_bi.setColor(Color.BLACK);
+                    feld[x/pixelWidth][y/pixelWidth]=false; //White
                 }
-                g_bi.fillRect(x, y, pixelWidth, pixelWidth);
             }
         }
+        BufferedImage nono = new BufferedImage(pixelNumWidth, pixelNumHeight, BufferedImage.TYPE_INT_RGB);
+        for(int y=0;y<pixelNumHeight;y++) {
+            for(int x=0;x<pixelNumWidth;x++) {
+                if(feld[x][y]==true) {
+                    nono.setRGB(x, y, Color.WHITE.getRGB());
+                } else {
+                    nono.setRGB(x, y, Color.BLACK.getRGB());
+                }
+            }
+        }
+        bi = nono;
         bild.repaint();
     }
     
