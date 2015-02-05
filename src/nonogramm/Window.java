@@ -17,6 +17,7 @@ public class Window extends javax.swing.JFrame {
     BufferedImage bi = null;
     BufferedImage bildoriginal = null;
     boolean bool = false;
+    boolean mouseBool = false;
 
     public Window() {
         initComponents();
@@ -27,6 +28,7 @@ public class Window extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
         link = new javax.swing.JTextField();
         wahl = new javax.swing.JButton();
         laden = new javax.swing.JButton();
@@ -43,6 +45,7 @@ public class Window extends javax.swing.JFrame {
         pixel = new javax.swing.JSlider();
         jLabel2 = new javax.swing.JLabel();
         effect = new javax.swing.JButton();
+        mouse = new javax.swing.JToggleButton();
 
         jTextField1.setText("jTextField1");
 
@@ -69,6 +72,12 @@ public class Window extends javax.swing.JFrame {
             }
         });
 
+        bild.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bildMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout bildLayout = new javax.swing.GroupLayout(bild);
         bild.setLayout(bildLayout);
         bildLayout.setHorizontalGroup(
@@ -77,7 +86,7 @@ public class Window extends javax.swing.JFrame {
         );
         bildLayout.setVerticalGroup(
             bildLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 512, Short.MAX_VALUE)
+            .addGap(0, 511, Short.MAX_VALUE)
         );
 
         schwellwert.setMaximum(255);
@@ -115,6 +124,13 @@ public class Window extends javax.swing.JFrame {
             }
         });
 
+        mouse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cursor.png"))); // NOI18N
+        mouse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mouseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,17 +150,19 @@ public class Window extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(effect, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(link))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pixel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(schwellwert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(schwellwert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(mouse, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pixel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -153,10 +171,12 @@ public class Window extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(link, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(schwellwert, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(link, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(schwellwert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(mouse, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,8 +234,18 @@ public class Window extends javax.swing.JFrame {
     }//GEN-LAST:event_speichernActionPerformed
 
     private void effectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_effectActionPerformed
-        bool = true;
-        effect();
+        if (bool == false) {
+            bool = true;
+            effect.setText("Beenden");
+            mouse.setSelected(false);
+            mouseBool=false;
+            effect();
+        } else {
+            bool = false;
+            effect.setText("Anwenden");
+        }
+        
+        
     }//GEN-LAST:event_effectActionPerformed
 
     private void schwellwertStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_schwellwertStateChanged
@@ -229,6 +259,35 @@ public class Window extends javax.swing.JFrame {
             effect();
         }
     }//GEN-LAST:event_pixelStateChanged
+
+    private void mouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mouseActionPerformed
+        if (mouseBool==false) {
+            bool=false;
+            effect.setText("Anwenden");
+            mouseBool=true;
+        } else {
+            mouseBool=false;
+        }
+    }//GEN-LAST:event_mouseActionPerformed
+
+    private void bildMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bildMouseClicked
+        if(mouseBool == true) {
+            System.out.println("Im here");
+            int panelX = evt.getX();
+            int panelY = evt.getY();
+            double piFaktor = bi.getWidth() * 1.0 / bild.getWidth();
+            int bildX = (int) (panelX * piFaktor);
+            int bildY = (int) (panelY * piFaktor);
+            if(bi.getRGB(bildX, bildY)==Color.WHITE.getRGB()) {
+                System.out.println("Hello");
+                bi.setRGB(bildX, bildY, Color.BLACK.getRGB());
+            } else {
+                bi.setRGB(bildX, bildY, Color.WHITE.getRGB());
+                System.out.println("Bye");
+            }
+            bild.repaint();
+        }
+    }//GEN-LAST:event_bildMouseClicked
 
     /**
      * @param args the command line arguments
@@ -274,7 +333,6 @@ public class Window extends javax.swing.JFrame {
         int height = pixelNumHeight*pixelWidth;
         int width = pixelNumWidth*pixelWidth;
         
-        boolean[][] feld = new boolean[pixelNumWidth][pixelNumHeight];
         BufferedImage nono = new BufferedImage(pixelNumWidth, pixelNumHeight, BufferedImage.TYPE_INT_RGB);
         for(int y=0;y<height;y+=pixelWidth) {
             for(int x=0;x<width;x+=pixelWidth) {
@@ -332,9 +390,11 @@ public class Window extends javax.swing.JFrame {
     private javax.swing.JButton effect;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton laden;
     private javax.swing.JTextField link;
+    private javax.swing.JToggleButton mouse;
     private javax.swing.JSlider pixel;
     private javax.swing.JSlider schwellwert;
     private javax.swing.JButton speichern;
