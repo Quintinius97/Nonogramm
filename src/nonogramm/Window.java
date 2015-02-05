@@ -270,13 +270,12 @@ public class Window extends javax.swing.JFrame {
         int pixelNumWidth = pixel.getValue();
         int pixelWidth = bildoriginal.getWidth()/pixelNumWidth;
         int pixelPoints = (pixelWidth/5)*(pixelWidth/5);
-        System.out.println("Pixelwidth: "+ pixelWidth);
         int pixelNumHeight = bildoriginal.getHeight()/pixelWidth;
         int height = pixelNumHeight*pixelWidth;
         int width = pixelNumWidth*pixelWidth;
         
         boolean[][] feld = new boolean[pixelNumWidth][pixelNumHeight];
-        //bi = bildoriginal.getSubimage(0, 0, pixelNumWidth*pixelWidth, pixelNumHeight*pixelWidth);
+        BufferedImage nono = new BufferedImage(pixelNumWidth, pixelNumHeight, BufferedImage.TYPE_INT_RGB);
         for(int y=0;y<height;y+=pixelWidth) {
             for(int x=0;x<width;x+=pixelWidth) {
                 int r=0;
@@ -294,13 +293,13 @@ public class Window extends javax.swing.JFrame {
                 
                 int hell=(r+g+b)/3; //0-255
                 if(hell>=schwell) {
-                    feld[x/pixelWidth][y/pixelWidth]=true; //White
+                    nono.setRGB(x/pixelWidth, y/pixelWidth, Color.WHITE.getRGB());
                 } else {
-                    feld[x/pixelWidth][y/pixelWidth]=false; //White
+                    nono.setRGB(x/pixelWidth, y/pixelWidth, Color.BLACK.getRGB());
                 }
             }
         }
-        BufferedImage nono = new BufferedImage(pixelNumWidth, pixelNumHeight, BufferedImage.TYPE_INT_RGB);
+        /*
         for(int y=0;y<pixelNumHeight;y++) {
             for(int x=0;x<pixelNumWidth;x++) {
                 if(feld[x][y]==true) {
@@ -310,6 +309,7 @@ public class Window extends javax.swing.JFrame {
                 }
             }
         }
+                */
         bi = nono;
         bild.repaint();
     }
