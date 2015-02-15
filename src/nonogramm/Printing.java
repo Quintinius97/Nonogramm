@@ -1,6 +1,5 @@
 package nonogramm;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -25,21 +24,38 @@ public class Printing implements Printable{
             return NO_SUCH_PAGE;
         }
 
-        Graphics2D g = (Graphics2D) gr;
-
         double x = pageFormat.getImageableX();
         double y = pageFormat.getImageableY();
         double w = pageFormat.getImageableWidth();
         double h = pageFormat.getImageableHeight();
-
-        double sx = w / img.getWidth();
-        double sy = h / img.getHeight();
-
+        Graphics2D g = (Graphics2D)gr;
         g.translate(x, y);
-        g.scale(sx, sy);
 
-        gr.drawImage(img, 0, 0, Color.WHITE, null);
+        if(w<h) {
+            double sw = w / img.getWidth();
+            int nh = (int)(sw * img.getHeight());
+            gr.drawImage(img, 0, 0, (int)w, nh, null); 
+        } else {
+            double sh = h / img.getHeight();
+            int nw = (int)(sh * img.getWidth());
+            gr.drawImage(img, 0, 0, (int)h, nw, null); 
+        }
+
+        
 
         return PAGE_EXISTS;
+    }
+    
+    public void Drucken() {
+         PrinterJob job = PrinterJob.getPrinterJob();
+         job.setPrintable(this);
+         boolean ok = job.printDialog();
+         if (ok) {
+             try {
+                  job.print();
+             } catch (PrinterException ex) {
+                 System.out.println("The job did not successfully complete");
+             }
+         }
     }
 }
