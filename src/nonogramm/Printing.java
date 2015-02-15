@@ -17,6 +17,7 @@ public class Printing implements Printable{
     protected BufferedImage img;
     private String[] x;
     private String[] y;
+    
     public Printing(BufferedImage img) {
         this.img=img;
         Riddle();
@@ -28,14 +29,14 @@ public class Printing implements Printable{
             return NO_SUCH_PAGE;
         }
         
-        int offset = 50;
+        int offset = 20;
         double x = pageFormat.getImageableX()+offset;
         double y = pageFormat.getImageableY()+offset;
         double w = pageFormat.getImageableWidth()-2*offset;
         double h = pageFormat.getImageableHeight()-2*offset;
         Graphics2D g = (Graphics2D)gr;
         g.translate(x, y);
-
+        
         if(w<h) {
             double sw = w / img.getWidth();
             int nh = (int)(sw * img.getHeight());
@@ -45,9 +46,6 @@ public class Printing implements Printable{
             int nw = (int)(sh * img.getWidth());
             gr.drawImage(img, 0, 0, (int)h, nw, null); 
         }
-
-        
-
         return PAGE_EXISTS;
     }
     
@@ -88,7 +86,6 @@ public class Printing implements Printable{
                 counter=0;
             }
         }
-        
         for(int j=0;j<w;j++) {
             y[j]="";
             for(int i=0;i<h;i++) {
@@ -106,5 +103,32 @@ public class Printing implements Printable{
                 counter=0;
             }
         }
+        int maxX=MaxLength(x);
+        for(int i=0;i<x.length;i++) {
+            if(x[i].length()<maxX) {
+                for(int d=0;d<(maxX-x[i].length()+1);d++) {
+                    x[i]=" "+x[i];
+                }
+            }
+        }
+        int maxY=MaxLength(y);
+        for(int i=0;i<y.length;i++) {
+            if(y[i].length()<maxX) {
+                for(int d=0;d<(maxY-y[i].length()+1);d++) {
+                    y[i]=" "+y[i];
+                }
+            }
+        }
+        System.out.println("Done");
+    }
+    
+    private int MaxLength(String[] array) {
+        int max=0;
+        for(int i=0;i<array.length;i++) {
+            if(max<array[i].length()) {
+                max=array[i].length();
+            }
+        }
+        return max;
     }
 }
