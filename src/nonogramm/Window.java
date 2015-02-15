@@ -73,6 +73,7 @@ public class Window extends javax.swing.JFrame {
             }
         });
 
+        bild.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bild.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 bildMouseClicked(evt);
@@ -282,18 +283,15 @@ public class Window extends javax.swing.JFrame {
 
     private void bildMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bildMouseClicked
         if(mouseBool == true) {
-            System.out.println("Im here");
             int panelX = evt.getX();
             int panelY = evt.getY();
             double piFaktor = bi.getWidth() * 1.0 / bild.getWidth();
             int bildX = (int) (panelX * piFaktor);
             int bildY = (int) (panelY * piFaktor);
             if(bi.getRGB(bildX, bildY)==Color.WHITE.getRGB()) {
-                System.out.println("Hello");
                 bi.setRGB(bildX, bildY, Color.BLACK.getRGB());
             } else {
                 bi.setRGB(bildX, bildY, Color.WHITE.getRGB());
-                System.out.println("Bye");
             }
             bild.repaint();
         }
@@ -340,7 +338,7 @@ public class Window extends javax.swing.JFrame {
     }
     
     public void effect() {
-        int schwell = (int)(schwellwert.getValue()/100.0 * Math.sqrt(255*255+255*255+255*255));
+        int schwell = (int)(schwellwert.getValue()/100.0 * 255);
         int pixelNumWidth = pixel.getValue();
         int pixelWidth = bildoriginal.getWidth()/pixelNumWidth;
         int pixelPoints = (pixelWidth/5)*(pixelWidth/5);

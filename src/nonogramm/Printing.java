@@ -1,5 +1,6 @@
 package nonogramm;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -14,8 +15,11 @@ import static java.awt.print.Printable.PAGE_EXISTS;
 public class Printing implements Printable{
     
     protected BufferedImage img;
+    private String[] x;
+    private String[] y;
     public Printing(BufferedImage img) {
         this.img=img;
+        Riddle();
     }
     
     @Override
@@ -23,11 +27,12 @@ public class Printing implements Printable{
         if (pageIndex != 0) {
             return NO_SUCH_PAGE;
         }
-
-        double x = pageFormat.getImageableX();
-        double y = pageFormat.getImageableY();
-        double w = pageFormat.getImageableWidth();
-        double h = pageFormat.getImageableHeight();
+        
+        int offset = 50;
+        double x = pageFormat.getImageableX()+offset;
+        double y = pageFormat.getImageableY()+offset;
+        double w = pageFormat.getImageableWidth()-2*offset;
+        double h = pageFormat.getImageableHeight()-2*offset;
         Graphics2D g = (Graphics2D)gr;
         g.translate(x, y);
 
@@ -57,5 +62,49 @@ public class Printing implements Printable{
                  System.out.println("The job did not successfully complete");
              }
          }
+    }
+    
+    private void Riddle() {
+        int w = img.getWidth();
+        int h = img.getHeight();
+        x = new String[h];
+        y = new String[w];
+        int counter = 0;
+        
+        for(int i=0;i<h;i++) {
+            x[i]="";
+            for(int j=0;j<w;j++) {
+                if(img.getRGB(j, i)==Color.BLACK.getRGB()) {
+                    counter++;
+                } else {
+                    if(counter!=0) {
+                        x[i]=x[i]+counter;
+                    }
+                    counter=0;
+                }
+            }
+            if(counter!=0) {
+                x[i]=x[i]+counter;
+                counter=0;
+            }
+        }
+        
+        for(int j=0;j<w;j++) {
+            y[j]="";
+            for(int i=0;i<h;i++) {
+                if(img.getRGB(j, i)==Color.BLACK.getRGB()) {
+                    counter++;
+                } else {
+                    if(counter!=0) {
+                        y[j]=y[j]+counter;
+                    }
+                    counter=0;
+                } 
+            }
+            if(counter!=0) {
+                y[j]=y[j]+counter;
+                counter=0;
+            }
+        }
     }
 }
