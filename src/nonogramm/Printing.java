@@ -44,7 +44,7 @@ public class Printing implements Printable{
         
         int fieldWidth = (int) (w / (maxX + img.getWidth()));
         if (fieldWidth > maxSize) {
-            fieldWidth = 50;
+            fieldWidth = 30;
         }
         int fontWidth = fieldWidth / 2;
         int fontHeight = FontHeight(fontWidth, gr);
@@ -61,6 +61,23 @@ public class Printing implements Printable{
                     gr.drawString(newY[c], maxX*fontWidth+i*fieldWidth + fieldWidth/2-fontWidth, c * fontHeight);
                 }
             }
+        }
+        
+        //X small lines
+        for(int i=0;i<img.getHeight();i++) {
+            gr.drawLine(0, maxY*fontHeight+i*fieldWidth, maxX*fontWidth+fieldWidth*img.getWidth(), maxY*fontHeight+i*fieldWidth);
+        }
+        //X fat lines
+        for(int i=0;i<img.getHeight();i+=5) {
+            gr.drawLine(0, maxY*fontHeight+i*fieldWidth+1, maxX*fontWidth+fieldWidth*img.getWidth(), maxY*fontHeight+i*fieldWidth+1);
+        }
+        //Y small lines
+        for(int i=0;i<img.getWidth();i++) {
+            gr.drawLine(maxX*fontWidth+i*fieldWidth,0,maxX*fontWidth+i*fieldWidth,maxY*fontHeight+img.getWidth()*fieldWidth);
+        }
+        //Y fat lines
+        for(int i=0;i<img.getWidth();i+=5) {
+            gr.drawLine(maxX*fontWidth+i*fieldWidth+1, 0, maxX*fontWidth+i*fieldWidth+1, maxY*fontHeight+img.getWidth()*fieldWidth);
         }
         
         return PAGE_EXISTS;
