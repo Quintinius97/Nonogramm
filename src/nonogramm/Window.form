@@ -186,6 +186,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JSlider" name="pixel">
+      <Properties>
+        <Property name="maximum" type="int" value="99"/>
+      </Properties>
       <Events>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="pixelStateChanged"/>
       </Events>

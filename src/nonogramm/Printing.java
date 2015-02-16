@@ -1,6 +1,5 @@
 package nonogramm;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -43,26 +42,27 @@ public class Printing implements Printable{
         Graphics2D g = (Graphics2D)gr;
         g.translate(x, y);
         
-        if(w<h) {
-            int fieldWidth = (int)(w/(maxX+img.getWidth()));
-            if(fieldWidth > maxSize) {
-                fieldWidth = 50;
-            }
-            int fontHeight = FontHeight(fieldWidth, gr);
-            gr.setFont(new Font(Font.MONOSPACED, Font.PLAIN, fontHeight));
-            for(int i=0;i<this.x.length;i++) {
-                gr.drawString(this.x[i], 0,maxY*fontHeight+i*fontHeight);
-            }
-            for(int i=0;i<this.y.length;i++) {
-                for(int c=0;c<maxY;c++) {
-                    gr.drawString(""+this.y[i].charAt(c), maxX*fieldWidth+i*fieldWidth, c*fontHeight);
+        int fieldWidth = (int) (w / (maxX + img.getWidth()));
+        if (fieldWidth > maxSize) {
+            fieldWidth = 50;
+        }
+        int fontWidth = fieldWidth / 2;
+        int fontHeight = FontHeight(fontWidth, gr);
+        gr.setFont(new Font(Font.MONOSPACED, Font.PLAIN, fontHeight));
+        for (int i = 0; i < this.x.length; i++) {  // X Zahlen
+            gr.drawString(this.x[i], 0, maxY * fontHeight + i * fieldWidth);
+        }
+        for (int i = 0; i < this.y.length; i++) {  //Y Zahlen
+            String[] newY = this.y[i].split("#");
+            for (int c = 0; c < maxY; c++) {
+                if(newY[c].length()==1) {
+                    gr.drawString(newY[c], maxX*fontWidth+i*fieldWidth + fieldWidth/2-fontWidth/2, c * fontHeight);
+                } else {
+                    gr.drawString(newY[c], maxX*fontWidth+i*fieldWidth + fieldWidth/2-fontWidth, c * fontHeight);
                 }
             }
-        } else {
-            double sh = h / img.getHeight();
-            int nw = (int)(sh * img.getWidth());
-            gr.drawImage(img, 0, 0, (int)h, nw, null); 
         }
+        
         return PAGE_EXISTS;
     }
     
@@ -86,38 +86,44 @@ public class Printing implements Printable{
         y = new String[w];
         int counter = 0;
         
-        for(int i=0;i<h;i++) {
+        for(int i=0;i<h;i++) {  // X Part
             x[i]="";
             for(int j=0;j<w;j++) {
                 if(img.getRGB(j, i)==Color.BLACK.getRGB()) {
                     counter++;
                 } else {
                     if(counter!=0) {
-                        x[i]=x[i]+counter;
+                        x[i]=x[i]+counter+" ";
                     }
                     counter=0;
                 }
             }
             if(counter!=0) {
-                x[i]=x[i]+counter;
+                x[i]=x[i]+counter+" ";
                 counter=0;
             }
+            if(x[i].length()>0) {
+                x[i]=x[i].substring(0, x[i].length()-1);
+            }
         }
-        for(int j=0;j<w;j++) {
+        for(int j=0;j<w;j++) { //Y Part
             y[j]="";
             for(int i=0;i<h;i++) {
                 if(img.getRGB(j, i)==Color.BLACK.getRGB()) {
                     counter++;
                 } else {
                     if(counter!=0) {
-                        y[j]=y[j]+counter;
+                        y[j]=y[j]+counter+"#";
                     }
                     counter=0;
                 } 
             }
             if(counter!=0) {
-                y[j]=y[j]+counter;
+                y[j]=y[j]+counter+"#";
                 counter=0;
+            }
+            if(y[j].length()>0) {
+                y[j]=y[j].substring(0, y[j].length()-1);
             }
         }
         maxX=MaxLength(x);
@@ -128,8 +134,8 @@ public class Printing implements Printable{
         }
         maxY=MaxLength(y);
         for(int i=0;i<y.length;i++) {
-            while(y[i].length()<maxY) {
-                y[i]=" "+y[i];
+            while(y[i].length()-y[i].replace("#", "").length()+1<maxY) { //Nur Rauten Zählen
+                y[i]=" #"+y[i];
             }
         }
         System.out.println("Done");
@@ -138,8 +144,15 @@ public class Printing implements Printable{
     private int MaxLength(String[] array) {
         int max=0;
         for(int i=0;i<array.length;i++) {
-            if(max<array[i].length()) {
-                max=array[i].length();
+            if(!array[i].contains("#")) {
+                if(max<array[i].length()) {
+                    max=array[i].length();
+                }
+            } else {
+                int number = array[i].length()-array[i].replace("#", "").length()+1;
+                if(max<number) {
+                    max=number;
+                }
             }
         }
         return max;
