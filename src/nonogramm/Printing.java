@@ -1,6 +1,9 @@
 package nonogramm;
 
+import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -17,6 +20,9 @@ public class Printing implements Printable{
     protected BufferedImage img;
     private String[] x;
     private String[] y;
+    private int maxX;
+    private int maxY;
+    private final int maxSize = 50;
     
     public Printing(BufferedImage img) {
         this.img=img;
@@ -38,9 +44,20 @@ public class Printing implements Printable{
         g.translate(x, y);
         
         if(w<h) {
-            double sw = w / img.getWidth();
-            int nh = (int)(sw * img.getHeight());
-            gr.drawImage(img, 0, 0, (int)w, nh, null); 
+            int fieldWidth = (int)(w/(maxX+img.getWidth()));
+            if(fieldWidth > maxSize) {
+                fieldWidth = 50;
+            }
+            int fontHeight = FontHeight(fieldWidth, gr);
+            gr.setFont(new Font(Font.MONOSPACED, Font.PLAIN, fontHeight));
+            for(int i=0;i<this.x.length;i++) {
+                gr.drawString(this.x[i], 0,maxY*fontHeight+i*fontHeight);
+            }
+            for(int i=0;i<this.y.length;i++) {
+                for(int c=0;c<maxY;c++) {
+                    gr.drawString(""+this.y[i].charAt(c), maxX*fieldWidth+i*fieldWidth, c*fontHeight);
+                }
+            }
         } else {
             double sh = h / img.getHeight();
             int nw = (int)(sh * img.getWidth());
@@ -103,20 +120,16 @@ public class Printing implements Printable{
                 counter=0;
             }
         }
-        int maxX=MaxLength(x);
+        maxX=MaxLength(x);
         for(int i=0;i<x.length;i++) {
-            if(x[i].length()<maxX) {
-                for(int d=0;d<(maxX-x[i].length()+1);d++) {
-                    x[i]=" "+x[i];
-                }
+            while(x[i].length()<maxX) {
+                x[i]=" "+x[i];
             }
         }
-        int maxY=MaxLength(y);
+        maxY=MaxLength(y);
         for(int i=0;i<y.length;i++) {
-            if(y[i].length()<maxX) {
-                for(int d=0;d<(maxY-y[i].length()+1);d++) {
-                    y[i]=" "+y[i];
-                }
+            while(y[i].length()<maxY) {
+                y[i]=" "+y[i];
             }
         }
         System.out.println("Done");
@@ -130,5 +143,21 @@ public class Printing implements Printable{
             }
         }
         return max;
+    }
+    
+    private int FontHeight(int fontWidth, Graphics gr) {
+        int i=2;
+        int newWidth;
+        while(true) {
+            gr.setFont(new Font(Font.MONOSPACED, Font.PLAIN, i));
+            FontMetrics metric = gr.getFontMetrics();
+            newWidth = metric.stringWidth("1");
+            if(fontWidth==newWidth) {
+                break;
+            } else {
+                i++;
+            }
+        }
+        return i;
     }
 }

@@ -370,17 +370,6 @@ public class Window extends javax.swing.JFrame {
                 }
             }
         }
-        /*
-        for(int y=0;y<pixelNumHeight;y++) {
-            for(int x=0;x<pixelNumWidth;x++) {
-                if(feld[x][y]==true) {
-                    nono.setRGB(x, y, Color.WHITE.getRGB());
-                } else {
-                    nono.setRGB(x, y, Color.BLACK.getRGB());
-                }
-            }
-        }
-                */
         bi = nono;
         bild.repaint();
     }
