@@ -50,39 +50,41 @@ public class Printing implements Printable{
         }
         int fontWidth = fieldWidth / 2;
         int fontHeight = FontHeight(fontWidth, gr);
-        gr.setFont(new Font(Font.MONOSPACED, Font.PLAIN, fontHeight));
+        gr.setFont(new Font(Font.MONOSPACED, Font.CENTER_BASELINE, fontHeight));
+        int xSidebarWidth = gr.getFontMetrics().stringWidth(this.x[0])+fontWidth;
+        int ySidebarWidth=maxY*fontHeight+fontWidth;
+        
         for (int i = 0; i < this.x.length; i++) {  // X Zahlen
-            gr.drawString(this.x[i], 0, maxY * fontHeight+i*fieldWidth+(int)(fontHeight*faktor));
+            gr.drawString(this.x[i], 0, ySidebarWidth + i*fieldWidth+fontHeight);
         }
         for (int i = 0; i < this.y.length; i++) {  //Y Zahlen
             String[] newY = this.y[i].split("#");
             for (int c = 0; c < maxY; c++) {
                 if(newY[c].length()==1) {
-                    gr.drawString(newY[c], maxX*fontWidth+i*fieldWidth+fieldWidth/2-fontWidth/2, c*fontHeight+(int)(fontHeight*faktor));
+                    gr.drawString(newY[c], xSidebarWidth +i*fieldWidth+fieldWidth/2-fontWidth/2, c*fontHeight+fontHeight);
                 } else {
-                    gr.drawString(newY[c], maxX*fontWidth+i*fieldWidth+fieldWidth/2-fontWidth, c*fontHeight+(int)(fontHeight*faktor));
+                    gr.drawString(newY[c], xSidebarWidth +i*fieldWidth+fieldWidth/2-fontWidth, c*fontHeight+fontHeight);
                 }
             }
         }
         g.setStroke(new BasicStroke((float)0.5));
         //X small lines
         for(int i=0;i<img.getHeight();i++) {
-            g.drawLine(0, maxY*fontHeight+i*fieldWidth, maxX*fontWidth+fieldWidth*img.getWidth(), maxY*fontHeight+i*fieldWidth);
+            g.drawLine(0, ySidebarWidth+i*fieldWidth, xSidebarWidth+fieldWidth*img.getWidth(), ySidebarWidth+i*fieldWidth);
         }
         //Y small lines
         for(int i=0;i<img.getWidth();i++) {
-            g.drawLine(maxX*fontWidth+i*fieldWidth,0,maxX*fontWidth+i*fieldWidth,maxY*fontHeight+img.getHeight()*fieldWidth);
+            g.drawLine(xSidebarWidth+i*fieldWidth, 0, xSidebarWidth+i*fieldWidth, ySidebarWidth+img.getHeight()*fieldWidth);
         }
         g.setStroke(new BasicStroke(1));
         //X fat lines
         for(int i=0;i<img.getHeight();i+=5) {
-            g.drawLine(0, maxY*fontHeight+i*fieldWidth, maxX*fontWidth+fieldWidth*img.getWidth(), maxY*fontHeight+i*fieldWidth);
+            g.drawLine(0, ySidebarWidth+i*fieldWidth, xSidebarWidth+fieldWidth*img.getWidth(), ySidebarWidth+i*fieldWidth);
         }
         //Y fat lines
         for(int i=0;i<img.getWidth();i+=5) {
-            g.drawLine(maxX*fontWidth+i*fieldWidth, 0, maxX*fontWidth+i*fieldWidth+1, maxY*fontHeight+img.getHeight()*fieldWidth);
+            g.drawLine(xSidebarWidth+i*fieldWidth, 0, xSidebarWidth+i*fieldWidth, ySidebarWidth+img.getHeight()*fieldWidth);
         }
-        
         return PAGE_EXISTS;
     }
     
@@ -154,6 +156,9 @@ public class Printing implements Printable{
         }
         maxY=MaxLength(y);
         for(int i=0;i<y.length;i++) {
+            if(y[i].length()==0) {
+                y[i]=" ";
+            }
             while(y[i].length()-y[i].replace("#", "").length()+1<maxY) { //Nur Rauten Zählen
                 y[i]=" #"+y[i];
             }
@@ -182,7 +187,7 @@ public class Printing implements Printable{
         int i=2;
         int newWidth;
         while(true) {
-            gr.setFont(new Font(Font.MONOSPACED, Font.PLAIN, i));
+            gr.setFont(new Font(Font.MONOSPACED, Font.CENTER_BASELINE, i));
             FontMetrics metric = gr.getFontMetrics();
             newWidth = metric.stringWidth("1");
             if(fontWidth==newWidth) {
