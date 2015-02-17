@@ -1,5 +1,6 @@
 package nonogramm;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -34,31 +35,33 @@ public class Printing implements Printable{
             return NO_SUCH_PAGE;
         }
         
-        int offset = 20;
-        double x = pageFormat.getImageableX()+offset;
-        double y = pageFormat.getImageableY()+offset;
-        double w = pageFormat.getImageableWidth()-2*offset;
-        double h = pageFormat.getImageableHeight()-2*offset;
+        final int offset = 20;
+        final double faktor = 0.96;
+        final double x = pageFormat.getImageableX()+offset;
+        final double y = pageFormat.getImageableY()+offset;
+        final double w = pageFormat.getImageableWidth()-2*offset;
+        final double h = pageFormat.getImageableHeight()-2*offset;
         Graphics2D g = (Graphics2D)gr;
         g.translate(x, y);
         
         int fieldWidth = (int) (w / (maxX + img.getWidth()));
         if (fieldWidth > maxSize) {
-            fieldWidth = 30;
+            fieldWidth = 50;
         }
         int fontWidth = fieldWidth / 2;
         int fontHeight = FontHeight(fontWidth, gr);
         gr.setFont(new Font(Font.MONOSPACED, Font.PLAIN, fontHeight));
         for (int i = 0; i < this.x.length; i++) {  // X Zahlen
-            gr.drawString(this.x[i], 0, maxY * fontHeight + i * fieldWidth);
+            gr.drawString(this.x[i], 0, maxY * fontHeight+i*fieldWidth+(int)(fontHeight*faktor));
         }
         for (int i = 0; i < this.y.length; i++) {  //Y Zahlen
             String[] newY = this.y[i].split("#");
+            g.setStroke(new BasicStroke(1));
             for (int c = 0; c < maxY; c++) {
                 if(newY[c].length()==1) {
-                    gr.drawString(newY[c], maxX*fontWidth+i*fieldWidth + fieldWidth/2-fontWidth/2, c * fontHeight);
+                    gr.drawString(newY[c], maxX*fontWidth+i*fieldWidth+fieldWidth/2-fontWidth/2, c*fontHeight+(int)(fontHeight*faktor));
                 } else {
-                    gr.drawString(newY[c], maxX*fontWidth+i*fieldWidth + fieldWidth/2-fontWidth, c * fontHeight);
+                    gr.drawString(newY[c], maxX*fontWidth+i*fieldWidth+fieldWidth/2-fontWidth, c*fontHeight+(int)(fontHeight*faktor));
                 }
             }
         }
@@ -73,11 +76,11 @@ public class Printing implements Printable{
         }
         //Y small lines
         for(int i=0;i<img.getWidth();i++) {
-            gr.drawLine(maxX*fontWidth+i*fieldWidth,0,maxX*fontWidth+i*fieldWidth,maxY*fontHeight+img.getWidth()*fieldWidth);
+            gr.drawLine(maxX*fontWidth+i*fieldWidth,0,maxX*fontWidth+i*fieldWidth,maxY*fontHeight+img.getHeight()*fieldWidth);
         }
         //Y fat lines
         for(int i=0;i<img.getWidth();i+=5) {
-            gr.drawLine(maxX*fontWidth+i*fieldWidth+1, 0, maxX*fontWidth+i*fieldWidth+1, maxY*fontHeight+img.getWidth()*fieldWidth);
+            gr.drawLine(maxX*fontWidth+i*fieldWidth+1, 0, maxX*fontWidth+i*fieldWidth+1, maxY*fontHeight+img.getHeight()*fieldWidth);
         }
         
         return PAGE_EXISTS;
