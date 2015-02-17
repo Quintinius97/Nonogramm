@@ -57,21 +57,20 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel1" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="schwellLabel" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="schwellwert" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="mouse" min="-2" pref="25" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel2" max="-2" attributes="0"/>
+                              <Component id="pixelLabel" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="pixel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="drucken" min="-2" pref="25" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -86,7 +85,7 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="link" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel1" alignment="3" max="-2" attributes="0"/>
+                          <Component id="schwellLabel" alignment="3" max="-2" attributes="0"/>
                       </Group>
                       <Component id="schwellwert" max="32767" attributes="0"/>
                   </Group>
@@ -95,11 +94,11 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="wahl" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jLabel2" alignment="1" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="speichern" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="laden" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="effect" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="pixelLabel" alignment="3" max="-2" attributes="0"/>
                   </Group>
                   <Component id="pixel" min="-2" max="-2" attributes="0"/>
                   <Component id="drucken" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
@@ -181,10 +180,10 @@
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="schwellwertStateChanged"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="schwellLabel">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="4"/>
-        <Property name="text" type="java.lang.String" value="Schwellwert:"/>
+        <Property name="text" type="java.lang.String" value="Schwellwert: 75"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[100, 24]"/>
         </Property>
@@ -198,17 +197,17 @@
     </Component>
     <Component class="javax.swing.JSlider" name="pixel">
       <Properties>
-        <Property name="maximum" type="int" value="99"/>
-        <Property name="minimum" type="int" value="1"/>
+        <Property name="maximum" type="int" value="95"/>
+        <Property name="minimum" type="int" value="5"/>
       </Properties>
       <Events>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="pixelStateChanged"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="pixelLabel">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="4"/>
-        <Property name="text" type="java.lang.String" value="Pixelgr&#xf6;&#xdf;e:"/>
+        <Property name="text" type="java.lang.String" value="X-Pixel: 50"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[100, 24]"/>
         </Property>

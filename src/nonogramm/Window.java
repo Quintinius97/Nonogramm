@@ -41,9 +41,9 @@ public class Window extends javax.swing.JFrame {
         }
         ;
         schwellwert = new javax.swing.JSlider();
-        jLabel1 = new javax.swing.JLabel();
+        schwellLabel = new javax.swing.JLabel();
         pixel = new javax.swing.JSlider();
-        jLabel2 = new javax.swing.JLabel();
+        pixelLabel = new javax.swing.JLabel();
         effect = new javax.swing.JButton();
         mouse = new javax.swing.JToggleButton();
         drucken = new javax.swing.JButton();
@@ -103,27 +103,27 @@ public class Window extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Schwellwert:");
-        jLabel1.setMaximumSize(new java.awt.Dimension(100, 24));
-        jLabel1.setMinimumSize(new java.awt.Dimension(100, 24));
-        jLabel1.setPreferredSize(new java.awt.Dimension(100, 24));
+        schwellLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        schwellLabel.setText("Schwellwert: 75");
+        schwellLabel.setMaximumSize(new java.awt.Dimension(100, 24));
+        schwellLabel.setMinimumSize(new java.awt.Dimension(100, 24));
+        schwellLabel.setPreferredSize(new java.awt.Dimension(100, 24));
 
-        pixel.setMaximum(99);
-        pixel.setMinimum(1);
+        pixel.setMaximum(95);
+        pixel.setMinimum(5);
         pixel.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 pixelStateChanged(evt);
             }
         });
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Pixelgröße:");
-        jLabel2.setMaximumSize(new java.awt.Dimension(100, 24));
-        jLabel2.setMinimumSize(new java.awt.Dimension(100, 24));
-        jLabel2.setPreferredSize(new java.awt.Dimension(100, 24));
-        jLabel2.setRequestFocusEnabled(false);
-        jLabel2.setVerifyInputWhenFocusTarget(false);
+        pixelLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        pixelLabel.setText("X-Pixel: 50");
+        pixelLabel.setMaximumSize(new java.awt.Dimension(100, 24));
+        pixelLabel.setMinimumSize(new java.awt.Dimension(100, 24));
+        pixelLabel.setPreferredSize(new java.awt.Dimension(100, 24));
+        pixelLabel.setRequestFocusEnabled(false);
+        pixelLabel.setVerifyInputWhenFocusTarget(false);
 
         effect.setFont(new java.awt.Font("Tahoma", 1, 11));
         effect.setText("Do");
@@ -169,18 +169,17 @@ public class Window extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(schwellLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(schwellwert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mouse, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(pixelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(pixel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(drucken, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(drucken, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -191,17 +190,17 @@ public class Window extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(link, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(schwellLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(schwellwert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(mouse, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(wahl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(speichern, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(laden, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(effect, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(effect, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pixelLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pixel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(drucken, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -276,12 +275,14 @@ public class Window extends javax.swing.JFrame {
     }//GEN-LAST:event_effectActionPerformed
 
     private void schwellwertStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_schwellwertStateChanged
+        schwellLabel.setText("Schwellwert: "+ schwellwert.getValue());
         if(bool == true) {
             effect();
         }
     }//GEN-LAST:event_schwellwertStateChanged
 
     private void pixelStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pixelStateChanged
+        pixelLabel.setText("X-Pixel: "+pixel.getValue());
         if(bool == true) {
             effect();
         }
@@ -399,14 +400,14 @@ public class Window extends javax.swing.JFrame {
     private javax.swing.JPanel bild;
     private javax.swing.JButton drucken;
     private javax.swing.JButton effect;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton laden;
     private javax.swing.JTextField link;
     private javax.swing.JToggleButton mouse;
     private javax.swing.JSlider pixel;
+    private javax.swing.JLabel pixelLabel;
+    private javax.swing.JLabel schwellLabel;
     private javax.swing.JSlider schwellwert;
     private javax.swing.JButton speichern;
     private javax.swing.JButton wahl;

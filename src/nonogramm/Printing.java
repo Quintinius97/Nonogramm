@@ -36,7 +36,6 @@ public class Printing implements Printable{
         }
         
         final int offset = 20;
-        final double faktor = 1;
         final double x = pageFormat.getImageableX()+offset;
         final double y = pageFormat.getImageableY()+offset;
         final double w = pageFormat.getImageableWidth()-2*offset;
@@ -46,7 +45,7 @@ public class Printing implements Printable{
         
         int fieldWidth = (int) (w / (maxX + img.getWidth()));
         if (fieldWidth > maxSize) {
-            fieldWidth = 50;
+            fieldWidth = maxSize;
         }
         int fontWidth = fieldWidth / 2;
         int fontHeight = FontHeight(fontWidth, gr);
