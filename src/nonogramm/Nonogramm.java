@@ -1,7 +1,6 @@
 package nonogramm;
 
 /**
- *
  * @author Tom Richter
  */
 public class Nonogramm {

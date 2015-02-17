@@ -36,7 +36,7 @@ public class Printing implements Printable{
         }
         
         final int offset = 20;
-        final double faktor = 0.96;
+        final double faktor = 1;
         final double x = pageFormat.getImageableX()+offset;
         final double y = pageFormat.getImageableY()+offset;
         final double w = pageFormat.getImageableWidth()-2*offset;
@@ -56,7 +56,6 @@ public class Printing implements Printable{
         }
         for (int i = 0; i < this.y.length; i++) {  //Y Zahlen
             String[] newY = this.y[i].split("#");
-            g.setStroke(new BasicStroke(1));
             for (int c = 0; c < maxY; c++) {
                 if(newY[c].length()==1) {
                     gr.drawString(newY[c], maxX*fontWidth+i*fieldWidth+fieldWidth/2-fontWidth/2, c*fontHeight+(int)(fontHeight*faktor));
@@ -65,22 +64,23 @@ public class Printing implements Printable{
                 }
             }
         }
-        
+        g.setStroke(new BasicStroke((float)0.5));
         //X small lines
         for(int i=0;i<img.getHeight();i++) {
-            gr.drawLine(0, maxY*fontHeight+i*fieldWidth, maxX*fontWidth+fieldWidth*img.getWidth(), maxY*fontHeight+i*fieldWidth);
-        }
-        //X fat lines
-        for(int i=0;i<img.getHeight();i+=5) {
-            gr.drawLine(0, maxY*fontHeight+i*fieldWidth+1, maxX*fontWidth+fieldWidth*img.getWidth(), maxY*fontHeight+i*fieldWidth+1);
+            g.drawLine(0, maxY*fontHeight+i*fieldWidth, maxX*fontWidth+fieldWidth*img.getWidth(), maxY*fontHeight+i*fieldWidth);
         }
         //Y small lines
         for(int i=0;i<img.getWidth();i++) {
-            gr.drawLine(maxX*fontWidth+i*fieldWidth,0,maxX*fontWidth+i*fieldWidth,maxY*fontHeight+img.getHeight()*fieldWidth);
+            g.drawLine(maxX*fontWidth+i*fieldWidth,0,maxX*fontWidth+i*fieldWidth,maxY*fontHeight+img.getHeight()*fieldWidth);
+        }
+        g.setStroke(new BasicStroke(1));
+        //X fat lines
+        for(int i=0;i<img.getHeight();i+=5) {
+            g.drawLine(0, maxY*fontHeight+i*fieldWidth, maxX*fontWidth+fieldWidth*img.getWidth(), maxY*fontHeight+i*fieldWidth);
         }
         //Y fat lines
         for(int i=0;i<img.getWidth();i+=5) {
-            gr.drawLine(maxX*fontWidth+i*fieldWidth+1, 0, maxX*fontWidth+i*fieldWidth+1, maxY*fontHeight+img.getHeight()*fieldWidth);
+            g.drawLine(maxX*fontWidth+i*fieldWidth, 0, maxX*fontWidth+i*fieldWidth+1, maxY*fontHeight+img.getHeight()*fieldWidth);
         }
         
         return PAGE_EXISTS;
