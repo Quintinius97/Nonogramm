@@ -174,8 +174,8 @@
     </Container>
     <Component class="javax.swing.JSlider" name="schwellwert">
       <Properties>
-        <Property name="maximum" type="int" value="255"/>
-        <Property name="value" type="int" value="127"/>
+        <Property name="maximum" type="int" value="150"/>
+        <Property name="value" type="int" value="75"/>
       </Properties>
       <Events>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="schwellwertStateChanged"/>
@@ -199,6 +199,7 @@
     <Component class="javax.swing.JSlider" name="pixel">
       <Properties>
         <Property name="maximum" type="int" value="99"/>
+        <Property name="minimum" type="int" value="1"/>
       </Properties>
       <Events>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="pixelStateChanged"/>

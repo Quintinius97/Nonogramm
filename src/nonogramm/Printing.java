@@ -22,7 +22,7 @@ public class Printing implements Printable{
     private String[] y;
     private int maxX;
     private int maxY;
-    private final int maxSize = 50;
+    private final int maxSize = 10;
     
     public Printing(BufferedImage img) {
         this.img=img;

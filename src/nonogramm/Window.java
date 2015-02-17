@@ -95,8 +95,8 @@ public class Window extends javax.swing.JFrame {
             .addGap(0, 511, Short.MAX_VALUE)
         );
 
-        schwellwert.setMaximum(255);
-        schwellwert.setValue(127);
+        schwellwert.setMaximum(150);
+        schwellwert.setValue(75);
         schwellwert.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 schwellwertStateChanged(evt);
@@ -110,6 +110,7 @@ public class Window extends javax.swing.JFrame {
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 24));
 
         pixel.setMaximum(99);
+        pixel.setMinimum(1);
         pixel.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 pixelStateChanged(evt);
@@ -211,6 +212,10 @@ public class Window extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void wahlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wahlActionPerformed
+        effect.setText("Do");
+        mouse.setSelected(false);
+        mouseBool=false;
+        bool = false;
         final JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("/"));
         int zahl = fc.showOpenDialog(this);
@@ -220,6 +225,9 @@ public class Window extends javax.swing.JFrame {
 
     private void ladenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ladenActionPerformed
         bool = false;
+        effect.setText("Do");
+        mouse.setSelected(false);
+        mouseBool=false;
         String pfad = link.getText();
         if (pfad != null) {
             try {
@@ -234,7 +242,10 @@ public class Window extends javax.swing.JFrame {
     }//GEN-LAST:event_ladenActionPerformed
 
     private void speichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speichernActionPerformed
-
+        effect.setText("Do");
+        mouse.setSelected(false);
+        mouseBool=false;
+        bool = false;
         final JFileChooser fc = new JFileChooser();
 
         fc.setCurrentDirectory(new File("/"));
