@@ -232,7 +232,9 @@ public class Window extends javax.swing.JFrame {
             try {
                 bi = ImageIO.read(new File(pfad));
                 bildoriginal = bi;
-
+                if(bi.getWidth()<pixel.getValue()) {
+                    pixel.setValue(bi.getWidth());
+                }
                 bild.repaint();
             } catch (IOException ex) {
                 System.out.println("Beim Laden der Datei ist ein Fehler aufgetreten!");
@@ -283,6 +285,9 @@ public class Window extends javax.swing.JFrame {
 
     private void pixelStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pixelStateChanged
         pixelLabel.setText("X-Pixel: "+pixel.getValue());
+        if(bi.getWidth()<pixel.getValue()) {
+            pixel.setValue(bi.getWidth());
+        }
         if(bool == true) {
             effect();
         }
@@ -347,10 +352,13 @@ public class Window extends javax.swing.JFrame {
     }
     
     public void effect() {
-        int schwell = (int)(schwellwert.getValue()/100.0 * 255);
+        int schwell = schwellwert.getValue();
         int pixelNumWidth = pixel.getValue();
         int pixelWidth = bildoriginal.getWidth()/pixelNumWidth;
         int pixelPoints = (pixelWidth/5)*(pixelWidth/5);
+        if(pixelPoints==0) {
+            pixelPoints=1;
+        }
         int pixelNumHeight = bildoriginal.getHeight()/pixelWidth;
         int height = pixelNumHeight*pixelWidth;
         int width = pixelNumWidth*pixelWidth;

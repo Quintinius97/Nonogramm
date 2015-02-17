@@ -39,7 +39,6 @@ public class Printing implements Printable{
         final double x = pageFormat.getImageableX()+offset;
         final double y = pageFormat.getImageableY()+offset;
         final double w = pageFormat.getImageableWidth()-2*offset;
-        final double h = pageFormat.getImageableHeight()-2*offset;
         Graphics2D g = (Graphics2D)gr;
         g.translate(x, y);
         
